@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <!-- <th>Id</th> -->
     <th>Body</th>
     <th>Parent</th>
     <th>User</th>
@@ -11,7 +12,8 @@
   </tr>
 
 <% @posts.each do |post| %>
-  <tr>
+  <tr style="font-weight:bolder">
+    <!-- <td><%= post.id %></td> -->
     <td><%= post.body %></td>
     <td><%= post.parent_id %></td>
     <td><%= post.user_id %></td>
@@ -19,6 +21,17 @@
     <td><%= link_to 'Edit', edit_post_path(post) %></td>
     <td><%= link_to 'Destroy', post, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
+    <% replies = Post.where(["parent_id= ?", post.id])
+    replies.each do |reply| %>
+    <tr>
+        <td>&nbsp;-><%= reply.body %></td>
+	    <td><%= reply.parent_id %></td>
+	    <td><%= reply.user_id %></td>
+	    <td><%= link_to 'Show', reply %></td>
+	    <td><%= link_to 'Edit', edit_post_path(reply) %></td>
+	    <td><%= link_to 'Destroy', reply, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+    <% end %>
 <% end %>
 </table>
 

@@ -3,7 +3,9 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    user_id = params[:userid]
+    @posts = Post.where(["user_id = ?", user_id])
+    # @posts = Post.all
 
     respond_to do |format|
       format.html # index.html.erb
