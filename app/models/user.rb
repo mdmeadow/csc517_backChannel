@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  set_primary_key :user_id
-  attr_accessible :isAdmin, :password, :userName, :user_id
+  attr_accessible :isAdmin, :password, :userName
+  has_many :posts
   validates :userName, :presence => true, :uniqueness => true
 end

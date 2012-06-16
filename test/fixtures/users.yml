@@ -1,13 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  user_id: 1
   userName: MyString
   password: MyString
   isAdmin: false
 
 two:
-  user_id: 1
   userName: MyString
   password: MyString
   isAdmin: false

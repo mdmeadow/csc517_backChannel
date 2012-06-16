@@ -2,8 +2,8 @@
 
 <table>
   <tr>
-    <th>Parent</th>
     <th>Body</th>
+    <th>Parent</th>
     <th>User</th>
     <th></th>
     <th></th>
@@ -12,8 +12,8 @@
 
 <% @posts.each do |post| %>
   <tr>
-    <td><%= post.parent_id %></td>
     <td><%= post.body %></td>
+    <td><%= post.parent_id %></td>
     <td><%= post.user_id %></td>
     <td><%= link_to 'Show', post %></td>
     <td><%= link_to 'Edit', edit_post_path(post) %></td>
