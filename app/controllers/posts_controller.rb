@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     user_id = params[:userid]
-    @posts = Post.where(["user_id = ?", user_id])
+    @posts = Post.where(["user_id = ? and parent_id is null", user_id])
     # @posts = Post.all
 
     respond_to do |format|

@@ -3,7 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .post {
   width:50%;
-  margin:8px;
+  // margin-top:8px;
+  margin-left:8px;
+  margin-right:8px;
+  margin-bottom:4px;
   padding-top:2px;
   padding-right:2px;
   padding-left:8px;
@@ -28,4 +31,10 @@
 
 .body {
   padding-bottom:4px;
+}
+
+.link {
+  width:50%;
+  text-align:right;
+  margin-top:20px;
 }
