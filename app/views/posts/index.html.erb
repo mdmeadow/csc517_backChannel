@@ -1,39 +1,36 @@
-<h1>Listing posts</h1>
-
-<table>
-  <tr>
-    <!-- <th>Id</th> -->
-    <th>Body</th>
-    <th>Parent</th>
-    <th>User</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<% def parseSig(user, post)
+  signature = " posted "
+  if (post.body == "")
+    signature = " upvoted "
+  elsif (post.parent_id != nil)
+    signature = " replied "
+  end
+  signature += "on #{post.created_at }"
+  signature = (link_to user.userName, :controller => 'users', :action => 'show', :id => user.id) + signature
+end %>
 <% @posts.each do |post| %>
-  <tr style="font-weight:bolder">
-    <!-- <td><%= post.id %></td> -->
-    <td><%= post.body %></td>
-    <td><%= post.parent_id %></td>
-    <td><%= post.user_id %></td>
-    <td><%= link_to 'Show', post %></td>
-    <td><%= link_to 'Edit', edit_post_path(post) %></td>
-    <td><%= link_to 'Destroy', post, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-    <% replies = Post.where(["parent_id= ?", post.id])
-    replies.each do |reply| %>
-    <tr>
-        <td>&nbsp;-><%= reply.body %></td>
-	    <td><%= reply.parent_id %></td>
-	    <td><%= reply.user_id %></td>
-	    <td><%= link_to 'Show', reply %></td>
-	    <td><%= link_to 'Edit', edit_post_path(reply) %></td>
-	    <td><%= link_to 'Destroy', reply, confirm: 'Are you sure?', method: :delete %></td>
-    </tr>
-    <% end %>
+<% user = User.find_by_id(post.user_id)%>
+<div class='post parent'>
+	<%= post.body %>
+	<% user = User.find_by_id(post.user_id) %>
+	<div class='signature'>
+		<%= parseSig(user, post) %>
+	</div>
+</div>
+<% replies = Post.where(["parent_id= ?", post.id])
+replies.each do |reply| %>
+<div class='post reply'>
+	<div class='body'>
+		<%= reply.body %>
+	</div>
+	<% user = User.find_by_id(reply.user_id) %>
+	<div class='signature'>
+		<%= parseSig(user, reply) %>
+	</div>
+</div>
 <% end %>
-</table>
+
+<% end %>
 
 <br />
 

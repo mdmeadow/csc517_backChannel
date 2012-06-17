@@ -1,3 +1,31 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.post {
+  width:50%;
+  margin:8px;
+  padding-top:2px;
+  padding-right:2px;
+  padding-left:8px;
+  min-height:20px;
+  border-style:outset;
+}
+
+.parent {
+  background-color:#eee8aa;
+}
+
+.reply {
+  background-color:#afeeee;
+  margin-left:60px;
+}
+
+.signature {
+  text-align:right;
+  font-size:smaller;
+  padding-bottom:2px;
+}
+
+.body {
+  padding-bottom:4px;
+}
