@@ -1,7 +1,11 @@
 Csc517Backchannel::Application.routes.draw do
+  get "admin/index"
+
   resources :posts
 
   resources :users
+  
+  resources :admin
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
