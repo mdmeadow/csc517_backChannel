@@ -3,9 +3,9 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    user_id = params[:userid]
-    @posts = Post.where(["user_id = ? and parent_id is null", user_id])
-    # @posts = Post.all
+    # @posts = Post.where("parent_id is null")
+    @posts = Post.select("posts.id, posts.body, posts.parent_id, posts.user_id, posts.created_at, count(*) as reply_count")
+      .joins(:children).group("children_posts.parent_id").order("reply_count DESC")
 
     respond_to do |format|
       format.html # index.html.erb
