@@ -1,13 +1,20 @@
 
 class UsersController < ApplicationController
+  def user_homepage
+    @user = User.first #this will be logged-in user once login is implemented
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
   # GET /users
   # GET /users.json
   def index
     @users = User.all
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
+      format.html # index.html.erb      format.json { render json: @users }
     end
   end
 

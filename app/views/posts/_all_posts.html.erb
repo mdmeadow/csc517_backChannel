@@ -1,0 +1,43 @@
+<% def parseSig(user, post)
+     signature = " posted "
+     if (post.body == "")
+       signature = " upvoted "
+     elsif (post.parent_id != nil)
+       signature = " replied "
+     end
+     signature += "on #{post.created_at }"
+     signature = (link_to user.userName, :controller => 'users', :action => 'show', :id => user.id) + signature
+   end %>
+<% @posts = Post.select("posts.id, posts.body, posts.parent_id, posts.user_id, posts.created_at, count(*) as reply_count")
+.joins(:children).group("children_posts.parent_id").order("reply_count DESC") %>
+<% @posts.each do |post| %>
+    <div class='link'><%= link_to 'Reply', 'reply' %>
+      <%= link_to 'Delete', post, confirm: 'Are you sure?', method: :delete %></div>
+    <% user = User.find_by_id(post.user_id)%>
+    <div class='post parent'>
+      <%= post.body %>
+      <% user = User.find_by_id(post.user_id) %>
+      <div class='signature'>
+        <%= parseSig(user, post) %>
+      </div>
+    </div>
+    <% replies = Post.where(["parent_id= ?", post.id]).order("id ASC")
+       i = 0
+       replies.each do |reply| %>
+        <% if i != 0 %>
+        <div class='link'><%= link_to 'Reply', 'reply' %>
+          <%= link_to 'Delete', reply, confirm: 'Are you sure?', method: :delete %></div>
+        <div class='post reply'>
+          <div class='body'>
+            <%= reply.body %>
+          </div>
+          <% user = User.find_by_id(reply.user_id) %>
+          <div class='signature'>
+            <%= parseSig(user, reply) %>
+          </div>
+        </div>
+        <% end %>
+        <% i = i + 1 %>
+    <% end %>
+
+<% end %>
