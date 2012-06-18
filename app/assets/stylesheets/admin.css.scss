@@ -8,12 +8,27 @@ td {
 
 th {
   padding-left: 20px;
-  font-size:larger;
-  font-weight:normal;
-  text-decoration:underline;
-  text-align:left;
+  font-size: larger;
+  font-weight: normal;
+  text-decoration: underline;
+  text-align: left;
+}
+
+h1 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+h3 {
+  padding-top: 10px;
+  padding-bottom: 4px;
+  margin-bottom: 4px;
 }
 
 .total {
   text-align:center;
+}
+
+.spacer {
+  height: 5px;
 }
