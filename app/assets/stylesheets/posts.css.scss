@@ -10,7 +10,6 @@
   padding-top:2px;
   padding-right:2px;
   padding-left:8px;
-  min-height:20px;
   border-style:outset;
 }
 
@@ -23,10 +22,20 @@
   margin-left:60px;
 }
 
-.signature {
-  text-align:right;
+.tagline {
   font-size:smaller;
   padding-bottom:2px;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.signature {
+  text-align:right;
+}
+
+.conversation {
+  float:left;
+  text-align:left;
 }
 
 .body {

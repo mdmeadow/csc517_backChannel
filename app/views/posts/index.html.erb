@@ -13,9 +13,10 @@ end %>
 <% user = User.find_by_id(post.user_id)%>
 <div class='post parent'>
 	<%= post.body %>
-	<% user = User.find_by_id(post.user_id) %>
-	<div class='signature'>
-		<%= parseSig(user, post) %>
+	<div><% user = User.find_by_id(post.user_id) %></div>
+	<div class='tagline'>
+		<div class='conversation'><%= link_to 'View this conversation', :controller => 'posts', :action => 'show', :id => post.id %></div>
+		<div class='signature'><%= parseSig(user, post) %></div>
 	</div>
 </div>
 <% replies = Post.where(["parent_id= ?", post.id])
@@ -24,9 +25,10 @@ replies.each do |reply| %>
 	<div class='body'>
 		<%= reply.body %>
 	</div>
-	<% user = User.find_by_id(reply.user_id) %>
-	<div class='signature'>
-		<%= parseSig(user, reply) %>
+	<div><% user = User.find_by_id(reply.user_id) %></div>
+	<div class='tagline'>
+		<div class='conversation'><%= link_to 'View this conversation', :controller => 'posts', :action => 'show', :id => reply.id %></div>
+		<div class='signature'><%= parseSig(user, reply) %></div>
 	</div>
 </div>
 <% end %>
