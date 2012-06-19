@@ -1,25 +1,33 @@
-<h1>Admin Reports</h1>
+<h1 class="report">Admin Reports</h1>
 
-<h3>Posts per User</h3>
-<table>
-	<tr><th>User Name</th><th>Total Posts</th></tr>
-	<% @postsPerUser.each do |post| %>
-	<tr><td><%= post.userName %></td><td class="total"><%= post.post_count %></td></tr>
+<h3>Daily Post Ranking for <%= Date.today %></h3>
+<table  class="report">
+	<tr><td class="header">Post Body</td><td class="header">User Name</td><td class="header total">Total Replies</td></tr>
+	<% @repliesPerPostForToday.each do |post| %>
+	<tr><td  class="report"><%= post.body %></td><td  class="report"><%= post.userName %></td><td class="total report"><%= post.reply_count %></td></tr>
 	<%end%>
 </table>
 
-<h3>Replies per Post</h3>
-<table>
-	<tr><th>User Name</th><th>Post Body</th><th>Total Replies</th></tr>
+<h3>Cumulative Post Ranking</h3>
+<table  class="report">
+	<tr><td class="header">Post Body</td><td class="header">User Name</td><td class="header total">Total Replies</td></tr>
 	<% @repliesPerPost.each do |post| %>
-	<tr><td><%= post.userName %></td><td><%= post.body %></td><td class="total"><%= post.reply_count %></td></tr>
+	<tr><td  class="report"><%= post.body %></td><td  class="report"><%= post.userName %></td><td class="total report"><%= post.reply_count %></td></tr>
 	<%end%>
 </table>
 
-<h3>Posts per Day</h3>
-<table>
-	<tr><th>Date</th><th>Total Posts</th></tr>
+<h3 class="report">Total Posts per User</h3>
+<table  class="report">
+	<tr><td class="header">User Name</td><td class="header total">Total Posts</td></tr>
+	<% @postsPerUser.each do |post| %>
+	<tr><td  class="report"><%= post.userName %></td><td class="total report"><%= post.post_count %></td></tr>
+	<%end%>
+</table>
+
+<h3>Total Posts per Day</h3>
+<table  class="report">
+	<tr><td class="header">Date</td><td class="header total">Total Posts</td></tr>
 	<% @postsPerDay.each do |day| %>
-	<tr><td><%= day.date %></td><td class="total"><%= day.post_count %></td></tr>
+	<tr><td  class="report"><%= day.date %></td><td class="total report"><%= day.post_count %></td></tr>
 	<%end%>
 </table>
