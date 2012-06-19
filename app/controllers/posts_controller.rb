@@ -1,24 +1,10 @@
-
 class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-<<<<<<< HEAD
-<<<<<<< HEAD
-    if @@searchedPosts != true
-      @posts = Post.select("posts.id, posts.body, posts.parent_id, posts.user_id, posts.created_at, count(*) as reply_count")
-      .joins(:children).group("children_posts.parent_id").order("reply_count DESC")
-    end
-=======
-    user_id = params[:userid]
-    @posts = Post.where(["user_id = ? and parent_id is null", user_id])
-    # @posts = Post.all
->>>>>>> parent of b9eec20... Corrected query to order by count of parent_ids in post controller.
-=======
-    # @posts = Post.where("parent_id is null")
-    @posts = Post.select("posts.id, posts.body, posts.parent_id, posts.user_id, posts.created_at, count(*) as reply_count")
-      .joins(:children).group("children_posts.parent_id").order("reply_count DESC")
->>>>>>> parent of e0a974c... user_homepage, rendered posts, rendered search
+    @posts = Post.select("posts.id, posts.body, posts.parent_id, posts.user_id, posts.created_at, count(children_posts.parent_id) as reply_count")
+      .joins("left join posts as children_posts on posts.id = children_posts.parent_id").group("children_posts.parent_id").order("reply_count DESC")
+      # .joins(:children).group("children_posts.parent_id").order("reply_count DESC")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,7 +15,14 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-    @post = Post.find(params[:id])
+      id = params[:id]
+      @post = Post.find(id)
+      if (@post.parent_id != nil)
+        id = @post.parent_id
+      end
+      @post = Post.find(id)
+    @replies = Post.select("children_posts.id, children_posts.body, children_posts.parent_id, children_posts.user_id, children_posts.created_at")
+      .joins(:children).where(["children_posts.parent_id = ?", id])
 
     respond_to do |format|
       format.html # show.html.erb
