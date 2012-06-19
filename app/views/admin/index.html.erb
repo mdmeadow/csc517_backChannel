@@ -1,0 +1,25 @@
+<h1>Admin Reports</h1>
+
+<h3>Posts per User</h3>
+<table>
+	<tr><th>User Name</th><th>Total Posts</th></tr>
+	<% @postsPerUser.each do |post| %>
+	<tr><td><%= post.userName %></td><td class="total"><%= post.post_count %></td></tr>
+	<%end%>
+</table>
+
+<h3>Replies per Post</h3>
+<table>
+	<tr><th>User Name</th><th>Post Body</th><th>Total Replies</th></tr>
+	<% @repliesPerPost.each do |post| %>
+	<tr><td><%= post.userName %></td><td><%= post.body %></td><td class="total"><%= post.reply_count %></td></tr>
+	<%end%>
+</table>
+
+<h3>Posts per Day</h3>
+<table>
+	<tr><th>Date</th><th>Total Posts</th></tr>
+	<% @postsPerDay.each do |day| %>
+	<tr><td><%= day.date %></td><td class="total"><%= day.post_count %></td></tr>
+	<%end%>
+</table>
