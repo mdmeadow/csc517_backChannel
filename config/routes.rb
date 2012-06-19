@@ -3,11 +3,6 @@ Csc517Backchannel::Application.routes.draw do
 
   resources :users
 
-  match "/post/reply", :controller => 'posts', :action => 'reply'
-  match "/user/user_homepage", :controller => 'users', :action => 'user_homepage'
-  match "/post/search", :controller => 'posts', :action => 'search'
-  match "/post/search_submitted", :controller => 'posts', :action => 'search_submitted'
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

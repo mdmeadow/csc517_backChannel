@@ -1,32 +1,9 @@
 
 class PostsController < ApplicationController
-  @@searchedPosts = false
-
-  # SEARCH
-  def search
-    respond_to do |format|
-      format.html
-    end
-  end
-
-  def search_submitted
-    id = User.find_all_by_userName(:searchInfo)
-    if id.empty?
-      posts =  Post.where("body like '%?%'", :searchInfo)
-    else
-      posts = Post.where("body like '%?%' or user_id like ?", :searchInfo, id)
-    end
-    @posts = posts
-    @@searchedPosts = true
-    respond_to do |format|
-      format.html { redirect_to :action => 'index'
-      }
-    end
-  end
-
   # GET /posts
   # GET /posts.json
   def index
+<<<<<<< HEAD
 <<<<<<< HEAD
     if @@searchedPosts != true
       @posts = Post.select("posts.id, posts.body, posts.parent_id, posts.user_id, posts.created_at, count(*) as reply_count")
@@ -37,12 +14,16 @@ class PostsController < ApplicationController
     @posts = Post.where(["user_id = ? and parent_id is null", user_id])
     # @posts = Post.all
 >>>>>>> parent of b9eec20... Corrected query to order by count of parent_ids in post controller.
+=======
+    # @posts = Post.where("parent_id is null")
+    @posts = Post.select("posts.id, posts.body, posts.parent_id, posts.user_id, posts.created_at, count(*) as reply_count")
+      .joins(:children).group("children_posts.parent_id").order("reply_count DESC")
+>>>>>>> parent of e0a974c... user_homepage, rendered posts, rendered search
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @posts }
     end
-    @@searchedPosts = false
   end
 
   # GET /posts/1
@@ -63,15 +44,6 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @post }
-    end
-  end
-
-  def reply
-    @post = Post.new
-
-    respond_to do |format|
-      format.html # reply.html.erb
       format.json { render json: @post }
     end
   end
@@ -120,7 +92,7 @@ class PostsController < ApplicationController
     @post.destroy
 
     respond_to do |format|
-      format.html { redirect_to 'user_homepage' }
+      format.html { redirect_to posts_url }
       format.json { head :no_content }
     end
   end

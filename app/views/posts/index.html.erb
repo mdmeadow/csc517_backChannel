@@ -9,8 +9,7 @@
   signature = (link_to user.userName, :controller => 'users', :action => 'show', :id => user.id) + signature
 end %>
 <% @posts.each do |post| %>
-<div class='link'><%= link_to 'Reply to this post', new_post_path %>
-  <%= link_to 'Delete this post', new_post_path %></div>
+<div class='link'><%= link_to 'Reply to this post', new_post_path %></div>
 <% user = User.find_by_id(post.user_id)%>
 <div class='post parent'>
 	<%= post.body %>
