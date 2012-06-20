@@ -1,10 +1,12 @@
 <div class="main">
-	<h1 class="title">Welcome to BackChan</h1>
-	<% if @searchResult %>
+	<%= render 'shared/title' %>
 	<div id="allPostsLink">
+		<% if @searchResult %>
 		<%= link_to 'View all posts', :action => 'index' %>
+		<% else %>
+		<%= link_to 'Create a new post', new_post_path %>
+		<% end %>
 	</div>
-	<% end %>
 
 	<div id="loginLink">
 		<%= link_to 'Login/Create account', :controller => 'login' %>
@@ -29,7 +31,7 @@
     signature = (link_to user.userName, :controller => 'users', :action => 'show', :id => user.id) + signature
   end %>
 	<% @posts.each do |post| %>
-	<div class='link'>
+	<div class='replyLink'>
 		<%= link_to 'Reply to this post', new_post_path %>
 	</div>
 	<% user = User.find_by_id(post.user_id)%>
@@ -68,11 +70,5 @@
 	</div>
 	<% end %>
 	<% end %>
-
 	<% end %>
-
-	<br />
-
-	<%= link_to 'Create a new post', new_post_path %>
-
 </div>

@@ -1,3 +1,5 @@
+<div class="main">
+<%= link_to 'View all posts', :controller => 'home', :action => 'index' %>
 <% def parseSig(user, post)
   signature = " posted "
   if (post.body == "")
@@ -27,5 +29,4 @@ end %>
 	</div>
 </div>
 <% end %>
-<br />
-<%= link_to 'Back', posts_path %>
+</div>
