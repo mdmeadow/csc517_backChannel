@@ -1,27 +1,67 @@
-<h1>Listing users</h1>
-
-<table>
-  <tr>
-    <th>Username</th>
-    <th>Password</th>
-    <th>Isadmin</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.userName %></td>
-    <td><%= user.password %></td>
-    <td><%= user.isAdmin %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
+<h1><%="#{@user.userName}'s Homepage"%></h1>
+<p>
+  <b><%= "Account created on #{@user.created_at}" %></b>
+</p>
 <br />
+<%= render 'posts/search' %>
+<br />
+<%= link_to 'New Post', :controller => 'posts', :action => 'new', :id => @user.id%>
+<% def parseSig(user, post)
+     signature = " posted "
+     if (post.body == "")
+       signature = " upvoted "
+     elsif (post.parent_id != nil)
+       signature = " replied "
+     end
+     signature += "on #{post.created_at }"
+     signature = (link_to user.userName, :controller => 'users', :action => 'show', :id => user.id) + signature
+end %>
+<% @posts.each do |post| %>
+    <div class='link'><%= link_to 'Reply to this post', :controller => 'posts',
+          :action => 'reply', :id => @user.id, :par_id => post.id %>
+      <% if @user.isAdmin? %>
+          <%= link_to 'Delete this post', post, confirm: 'Are you sure?', :controller => 'posts',
+                 :method => :delete,  :id => post.id%>
+      <% end %>
+    </div>
+    <% user = User.find_by_id(post.user_id)%>
+    <div class='post parent'>
+      <%= post.body %>
+      <div><% user = User.find_by_id(post.user_id) %></div>
+      <div class='tagline'>
+        <div class='conversation'><%= link_to 'View this conversation', :controller => 'posts',
+                  :action => 'show', :id => post.id %></div>
+        <div class='signature'><%= parseSig(user, post) %></div>
+      </div>
+    </div>
+    <% replies = Post.where(["parent_id= ?", post.id])
+       replies.each do |reply| %>
+        <div class='link'>
+          <% if @user.isAdmin? %>
+              <%= link_to 'Delete this reply', reply, confirm: 'Are you sure?', :controller => 'posts',
+                   :method => :delete, :id => reply.id %>
+          <% end %>
+        </div>
+        <div class='post reply'>
+          <div class='body'>
+            <%= reply.body %>
+          </div>
+          <div><% user = User.find_by_id(reply.user_id) %></div>
+          <div class='tagline'>
+            <div class='conversation'><%= link_to 'View this conversation', :controller => 'posts',
+                  :action => 'show', :id => reply.id %></div>
+            <div class='signature'><%= parseSig(user, reply) %></div>
+          </div>
+        </div>
+    <% end %>
 
-<%= link_to 'New User', new_user_path %>
+<% end %>
+
+<br /><br />
+<% if @user.isAdmin? %>
+<%= link_to 'Show Reports', :controller => 'admin', :action => 'index' %>
+<%= link_to 'Create Account', :action => 'new' %>
+<%= link_to 'Show Accounts', :action => 'show_all' %>
+<% end %>
+<br />
+<%= link_to 'Logout', :action => 'logout' %>

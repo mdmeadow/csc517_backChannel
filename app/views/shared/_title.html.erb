@@ -1,2 +1,2 @@
 <h1 class="title">Welcome to BackChan</h1>
-<h3 class = "title">You are logged in as <%= session[:user].nil? ? "guest" : "#{session[:user]}" %></h3>
+<h3 class = "title">You are logged in as <%= session[:user].nil? ? "guest" : "#{session[:user].userName}" %></h3>

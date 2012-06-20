@@ -13,6 +13,11 @@ Csc517Backchannel::Application.routes.draw do
   
   resources :admin
 
+  match "/user/authenticate", :controller => 'users', :action => 'authenticate'
+  match "/user/create_error", :controller => 'users', :action => 'create_account'
+  match "/user/login", :controller => 'users', :action => 'login'
+  match "/user/logout", :controller => 'users', :action => 'logout'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

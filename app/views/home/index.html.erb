@@ -9,7 +9,11 @@
 	</div>
 
 	<div id="loginLink">
-		<%= link_to 'Login/Create account', :controller => 'login' %>
+		<%= if session[:user].nil?
+      link_to 'Login/Create account', :controller => 'users', :action => 'login'
+    else
+      link_to 'Logout', :controller => 'users', :action => 'logout'
+    end %>
 	</div>
 
 	<div class="search">

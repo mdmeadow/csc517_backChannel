@@ -1,32 +1,35 @@
 <div class="main">
-<%= link_to 'View all posts', :controller => 'home', :action => 'index' %>
-<% def parseSig(user, post)
-  signature = " posted "
-  if (post.body == "")
-    signature = " upvoted "
-  elsif (post.parent_id != nil)
-    signature = " replied "
-  end
-  signature += "on #{post.created_at }"
-  signature = (link_to user.userName, :controller => 'users', :action => 'show', :id => user.id) + signature
-end %>
-<div class='link'><%= link_to 'Reply to this post', new_post_path %></div>
-<% user = User.find_by_id(@post.user_id)%>
-<div class='post parent' style="border-color: <%= params[:id].to_i == @post.id ? "red" : "none" %>">
-	<%= @post.body %>
-	<div class='signature'>
-		<%= parseSig(user, @post) %>
+	<%= render 'shared/title' %>
+	<%= link_to 'View all posts', :controller => 'home', :action => 'index' %>
+	<% def parseSig(user, post)
+      signature = " posted "
+      if (post.body == "")
+        signature = " upvoted "
+      elsif (post.parent_id != nil)
+        signature = " replied "
+      end
+      signature += "on #{post.created_at }"
+      signature = (link_to user.userName, :controller => 'users', :action => 'show', :id => user.id) + signature
+    end %>
+	<div class='replyLink'>
+		<%= link_to 'Reply to this post', new_post_path %>
 	</div>
-</div>
-<% @replies.each do |reply| %>
-<div class='post reply' style="border-color: <%= params[:id].to_i == reply.id ? "red" : "none" %>">
-	<div class='body'>
-		<%= reply.body %>
+	<% user = User.find_by_id(@post.user_id)%>
+	<div class='post parent' style="border-color: <%= params[:id].to_i == @post.id ? "red" : "none" %>">
+		<%= @post.body %>
+		<div class='signature'>
+			<%= parseSig(user, @post) %>
+		</div>
 	</div>
-	<% user = User.find_by_id(reply.user_id) %>
-	<div class='signature'>
-		<%= parseSig(user, reply) %>
+	<% @replies.each do |reply| %>
+	<div class='post reply' style="border-color: <%= params[:id].to_i == reply.id ? "red" : "none" %>">
+		<div class='body'>
+			<%= reply.body %>
+		</div>
+		<% user = User.find_by_id(reply.user_id) %>
+		<div class='signature'>
+			<%= parseSig(user, reply) %>
+		</div>
 	</div>
-</div>
-<% end %>
+	<% end %>
 </div>

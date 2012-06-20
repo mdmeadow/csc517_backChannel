@@ -1,0 +1,27 @@
+
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Password</th>
+    <th>Isadmin</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @users.each do |user| %>
+      <tr>
+        <td><%= user.userName %></td>
+        <td><%= user.password %></td>
+        <td><%= user.isAdmin %></td>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
+      </tr>
+  <% end %>
+</table>
+
+<br />
+
+<%= link_to 'Homepage', :action => 'user_homepage' %>
+<%= link_to 'Add New User', new_user_path %>
