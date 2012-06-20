@@ -1,22 +1,26 @@
 <div class="main">
 	<%= render 'shared/title' %>
-	<h1><%="Backchannel App"%></h1>
-<b>Sign in here:</b>
-<%= form_tag(:controller => "users", :action => "authenticate") do |f| %>
-    <%= text_field_tag(:login_un, nil, :size => 20, :placeholder => "User Name") %><br />
-    <%= text_field_tag(:login_pw, nil, :size => 20, :placeholder => "Password") %><br />
-    <%= submit_tag("Login") %>
-<% end %>
-<%= flash[:notice] %>
-<br />
-<br />
-  <b>No account? Create one here:</b>
-<%= form_tag(:controller => "users", :action => "create_account") do |f| %>
-    <%= text_field_tag(:create_un, nil, :size => 20, :placeholder => "User Name") %><br />
-    <%= text_field_tag(:create_pw, nil, :size => 20, :placeholder => "Password") %><br />
-    <%= text_field_tag(:confirm_pw, nil, :size => 20, :placeholder => "Confirm Password") %><br />
-    <%= submit_tag("Create Account") %>
-<% end %>
-<%= flash[:creation_notice] %>
+	<b>Sign in here:</b>
+	<%= form_tag(:controller => "users", :action => "authenticate") do |f| %>
+	<%= text_field_tag(:login_un, nil, :size => 20, :placeholder => "User Name") %>
+	<br />
+	<%= text_field_tag(:login_pw, nil, :size => 20, :placeholder => "Password") %>
+	<br />
+	<%= submit_tag("Login") %>
+	<% end %>
+	<%= flash[:notice] %>
+	<br />
+	<br />
+	<b>No account? Create one here:</b>
+	<%= form_tag(:controller => "users", :action => "create_account") do |f| %>
+	<%= text_field_tag(:create_un, nil, :size => 20, :placeholder => "User Name") %>
+	<br />
+	<%= text_field_tag(:create_pw, nil, :size => 20, :placeholder => "Password") %>
+	<br />
+	<%= text_field_tag(:confirm_pw, nil, :size => 20, :placeholder => "Confirm Password") %>
+	<br />
+	<%= submit_tag("Create Account") %>
+	<% end %>
+	<%= flash[:creation_notice] %>
 </div>
 

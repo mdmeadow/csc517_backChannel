@@ -6,6 +6,8 @@ Csc517Backchannel::Application.routes.draw do
   get "admin/index"
   
   post "home/search"
+  
+  post "posts/new"
 
   resources :posts
 

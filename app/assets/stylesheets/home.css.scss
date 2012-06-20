@@ -20,7 +20,11 @@
 
 .title {
   text-align:center;
-  color: #1e90ff;
+  color: #00ced1;
+}
+
+.subtitle {
+  color:#b8860b;
 }
 
 #search {
@@ -37,6 +41,7 @@
 }
 
 input[name="commit"] {
-  font-size:16px;
+  font-size:20px;
+  width: 60px;
 }
 
