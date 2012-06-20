@@ -1,0 +1,78 @@
+<div class="main">
+	<h1 class="title">Welcome to BackChan</h1>
+	<% if @searchResult %>
+	<div id="allPostsLink">
+		<%= link_to 'View all posts', :action => 'index' %>
+	</div>
+	<% end %>
+
+	<div id="loginLink">
+		<%= link_to 'Login/Create account', :controller => 'login' %>
+	</div>
+
+	<div class="search">
+		<%= form_tag("/home/search", :method => "post") do %>
+		<%= label_tag(:search, "Search for:") %>
+		<%= text_field_tag(:search) %>
+		<%= submit_tag("Search") %>
+		<% end %>
+	</div>
+
+	<% def parseSig(user, post)
+    signature = " posted "
+    if (post.body == "")
+      signature = " upvoted "
+    elsif (post.parent_id != nil)
+      signature = " replied "
+    end
+    signature += "on #{post.created_at }"
+    signature = (link_to user.userName, :controller => 'users', :action => 'show', :id => user.id) + signature
+  end %>
+	<% @posts.each do |post| %>
+	<div class='link'>
+		<%= link_to 'Reply to this post', new_post_path %>
+	</div>
+	<% user = User.find_by_id(post.user_id)%>
+	<div class='post parent'>
+		<%= post.body %>
+		<div>
+			<% user = User.find_by_id(post.user_id) %>
+		</div>
+		<div class='tagline'>
+			<div class='conversation'>
+				<%= link_to 'View this conversation', :controller => 'posts', :action => 'show', :id => post.id %>
+			</div>
+			<div class='signature'>
+				<%= parseSig(user, post) %>
+			</div>
+		</div>
+	</div>
+	<% if @searchResult == nil
+	replies = Post.where(["parent_id= ?", post.id])
+	replies.each do |reply| %>
+	<div class='post reply'>
+		<div class='body'>
+			<%= reply.body %>
+		</div>
+		<div>
+			<% user = User.find_by_id(reply.user_id) %>
+		</div>
+		<div class='tagline'>
+			<div class='conversation'>
+				<%= link_to 'View this conversation', :controller => 'posts', :action => 'show', :id => reply.id %>
+			</div>
+			<div class='signature'>
+				<%= parseSig(user, reply) %>
+			</div>
+		</div>
+	</div>
+	<% end %>
+	<% end %>
+
+	<% end %>
+
+	<br />
+
+	<%= link_to 'Create a new post', new_post_path %>
+
+</div>
