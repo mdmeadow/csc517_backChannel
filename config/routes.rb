@@ -1,5 +1,4 @@
 Csc517Backchannel::Application.routes.draw do
-  get "login/index"
 
   get "home/index"
 
@@ -19,7 +18,10 @@ Csc517Backchannel::Application.routes.draw do
   match "/user/create_error", :controller => 'users', :action => 'create_account'
   match "/user/login", :controller => 'users', :action => 'login'
   match "/user/logout", :controller => 'users', :action => 'logout'
-  
+  match "/user/show_all", :controller => 'users', :action => 'show_all'
+  match "/user/show_all", :controller => 'users', :action => 'show_all'
+  match "/user/delete_user", :controller => 'users', :action => 'delete_user'
+
   match "/posts/new/:parent_id/", :controller => 'posts', :action => 'new'
   
   # The priority is based upon order of creation:
