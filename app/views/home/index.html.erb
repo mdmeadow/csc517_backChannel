@@ -36,7 +36,7 @@
   end %>
 	<% @posts.each do |post| %>
 	<div class='replyLink'>
-		<%= link_to 'Reply to this post', new_post_path, :parent_id => post.parent_id %>
+		<%= link_to 'Reply to this post', :controller => 'posts', :action => 'new', :parent_id => post.id %>
 	</div>
 	<% user = User.find_by_id(post.user_id)%>
 	<div class='post parent'>

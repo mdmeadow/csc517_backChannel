@@ -20,6 +20,8 @@ Csc517Backchannel::Application.routes.draw do
   match "/user/login", :controller => 'users', :action => 'login'
   match "/user/logout", :controller => 'users', :action => 'logout'
   
+  match "/posts/new/:parent_id/", :controller => 'posts', :action => 'new'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
