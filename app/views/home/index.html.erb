@@ -52,7 +52,7 @@
 	<% if session[:user] != nil %>
 	<div class='replyLink'>
 		<%= link_to 'Reply to this post', :controller => 'posts', :action => 'new', :parent_id => post.id %>
-			<%  if session[:user].isAdmin? %>
+		<%  if session[:user].isAdmin? %>
 		<%= link_to 'Delete this post', post, confirm: 'Are you sure?', :controller => 'posts',
 		:method => :delete,  :id => post.id%>
 		<% end %>
