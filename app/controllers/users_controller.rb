@@ -37,13 +37,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    #@users = User.all
-    @user = session[:user]
-    @posts = Post.select("posts.id, posts.body, posts.parent_id, posts.user_id, posts.created_at, count(children_posts.parent_id) as reply_count")
-    .joins("left join posts as children_posts on posts.id = children_posts.parent_id").group("children_posts.parent_id").order("reply_count DESC")
-    respond_to do |format|
-      format.html
-    end
+  redirect_to "/"
   end
 
   # GET /users/1
@@ -179,7 +173,7 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to :action => 'show_all' }
+      format.html { redirect_to :action => "show_all" }
       format.json { head :no_content }
     end
   end
