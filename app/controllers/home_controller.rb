@@ -2,10 +2,14 @@ class HomeController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
+
+  i = InitAdmin.new
+    
     @backToIndex = false
     if (@posts == nil)
-      @posts = Post.select("posts.id, posts.body, posts.parent_id, posts.user_id, posts.created_at, count(children_posts.parent_id) as reply_count")
-      .joins("left join posts as children_posts on posts.id = children_posts.parent_id").group("children_posts.parent_id").order("reply_count DESC")
+      # @posts = Post.select("posts.id, posts.body, posts.parent_id, posts.user_id, posts.created_at, count(children_posts.parent_id) as reply_count")
+      # .joins("left join posts as children_posts on children_posts.parent_id = posts.id").group("children_posts.parent_id").order("reply_count DESC")
+      @posts = Post.where("parent_id is null")
     else
       @backToIndex = true
     end
@@ -27,5 +31,13 @@ class HomeController < ApplicationController
       # format.html # index.html.erb
       # format.json { render json: @posts }
     # end
+  end
+end
+
+class InitAdmin < ActiveRecord::Migration
+  def self.up
+    if Users.count("isAdmin = true") == 0
+      user = User.create!( :isAdmin => 'true', :login => 'admin', :password => 'admin' )
+    end
   end
 end
