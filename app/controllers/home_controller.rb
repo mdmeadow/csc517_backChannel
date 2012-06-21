@@ -3,8 +3,6 @@ class HomeController < ApplicationController
   # GET /posts.json
   def index
 
-  i = InitAdmin.new
-    
     @backToIndex = false
     if (@posts == nil)
       # @posts = Post.select("posts.id, posts.body, posts.parent_id, posts.user_id, posts.created_at, count(children_posts.parent_id) as reply_count")
@@ -13,7 +11,7 @@ class HomeController < ApplicationController
     else
       @backToIndex = true
     end
-    
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @posts }
@@ -27,17 +25,10 @@ class HomeController < ApplicationController
 
     render "index"
 
-    # respond_to do |format|
-      # format.html # index.html.erb
-      # format.json { render json: @posts }
-    # end
+  # respond_to do |format|
+  # format.html # index.html.erb
+  # format.json { render json: @posts }
+  # end
   end
 end
 
-class InitAdmin < ActiveRecord::Migration
-  def self.up
-    if Users.count("isAdmin = true") == 0
-      user = User.create!( :isAdmin => 'true', :login => 'admin', :password => 'admin' )
-    end
-  end
-end
