@@ -1,5 +1,13 @@
 <div class="main">
 	<%= render 'shared/title' %>
+<% if session[:user] != nil && session[:user].isAdmin? %>
+<div id="admin">
+	<div style="font-weight: bold; font-size: larger;"><%= "#{session[:user].userName} is an Administrator:" %></div>
+<%= link_to 'Show Reports', :controller => 'admin', :action => 'index' %>
+<%= link_to 'Create Account', :controller => 'users', :action => 'new' %>
+<%= link_to 'Show Accounts', :controller => 'users', :action => 'show_all' %>
+</div>
+<% end %>
 	<div id="allPostsLink">
 		<% if @searchResult %>
 		<%= link_to 'View all posts', :action => 'index' %>
@@ -7,7 +15,6 @@
 		<%= link_to 'Create a new post', new_post_path %>
 		<% end %>
 	</div>
-
 	<div id="loginLink">
 		<%= if session[:user].nil?
       link_to 'Login/Create account', :controller => 'users', :action => 'login'
@@ -16,6 +23,9 @@
     end %>
 	</div>
 
+	<div></div><p id="notice">
+		<%= notice %>
+	</p><div>
 	<div class="search">
 		<%= form_tag("/home/search", :method => "post") do %>
 		<%= label_tag(:search, "Search for:") %>
@@ -36,7 +46,7 @@
   end %>
 	<% @posts.each do |post| %>
 	<div class='replyLink'>
-		<%= link_to 'Reply to this post', new_post_path, :parent_id => post.parent_id %>
+		<%= link_to 'Reply to this post', :controller => 'posts', :action => 'new', :parent_id => post.id %>
 	</div>
 	<% user = User.find_by_id(post.user_id)%>
 	<div class='post parent'>
