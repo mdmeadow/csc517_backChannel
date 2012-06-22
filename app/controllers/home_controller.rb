@@ -5,11 +5,7 @@ class HomeController < ApplicationController
 
     @backToIndex = false
     if (@posts == nil)
-      # @posts = Post.select("posts.id, posts.body, posts.parent_id, posts.user_id, posts.created_at, count(children_posts.parent_id) as reply_count")
-      # .joins("left join posts as children_posts on children_posts.parent_id = posts.id").group("children_posts.parent_id").order("reply_count DESC")
-      @posts = Post.where("parent_id is null")
-      # @posts = Post.find_by_sql("select posts.id, posts.body, posts.parent_id, posts.user_id, posts.created_at, count(children_posts.parent_id) as reply_count from posts left outer join" +
-        # " posts as children_posts on children_posts.parent_id = posts.id having group by children_posts.parent_id order by reply_count desc");
+      @posts = Post.where("parent_id is null").sort_by{ |t| t.children.length }.reverse
 
     else
       @backToIndex = true
