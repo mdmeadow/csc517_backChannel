@@ -5,7 +5,7 @@ class AdminController < ApplicationController
     @postsPerUser = Post.select("users.userName, count(*) as post_count")
       .joins(:user).group("users.userName").order("post_count DESC")
 
-    @repliesPerPost = Post.select("posts.id, posts.body, posts.parent_id, users.userName")
+    @repliesPerPost = Post.select('posts.id, posts.body, posts.parent_id, "userName"')
           .joins(:user).where("parent_id is null").sort_by{ |t| t.children.length }.reverse
 
     @repliesPerPostForToday = Post.select("posts.id, posts.body, posts.parent_id, users.userName")
