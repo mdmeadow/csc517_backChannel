@@ -16,8 +16,10 @@
         <td><%= user.isAdmin? %></td>
         <td><%= user.created_at %></td>
         <td><%= link_to 'Show', user %></td>
+        <% if !session[:user].nil? && session[:user].isAdmin? %>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Delete', :method => 'delete', :confirm => 'Are you sure?', :action => "delete_user", :id => user.id %></td>
+        <td><%= link_to 'Delete', user, confirm: 'Are you sure?', :controller => 'users', :method => :delete,  :id => user.id%></td>
+        <% end %>
       </tr>
   <% end %>
 </table>

@@ -5,16 +5,22 @@
   <%= @user.userName %>
 </p>
 
+<p>
+  <b>User since:</b>
+  <%= @user.created_at %>
+</p>
+
+<p>
+  <b>User level:</b>
+  <% level = session[:user].isAdmin?? "Administrator" : "User" %>
+  <%= level %>
+</p>
+
 <% if !session[:user].nil? %>
     <% if session[:user].isAdmin? %>
 <p>
   <b>Password:</b>
   <%= @user.password %>
-</p>
-
-<p>
-  <b>Isadmin:</b>
-  <%= @user.isAdmin %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %>

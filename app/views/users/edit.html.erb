@@ -1,6 +1,8 @@
 <h1>Editing user</h1>
-
+<% if session[:user].isAdmin? %>
 <%= render 'form' %>
-
+<% else %>
+<div><%= "You must be an Admin to change this account!"%></div>
+<% end %>
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', :action => 'show_all' %>
