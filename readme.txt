@@ -4,7 +4,8 @@ Andrew Ford
 Backchannel App
 
 Default credentials:
-User: admin Password: admin
+User: admin
+Password: admin
 
 Running the application:
 To start the application, start the server and go to localhost:3000 in your browser. From there, all functionality should allow you to transition back and forth, performing all of the proper actions. 
