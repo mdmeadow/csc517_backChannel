@@ -19,8 +19,7 @@ class HomeController < ApplicationController
 
   def search
     @searchResult = true
-    @posts = Post.select("posts.id, posts.body, posts.parent_id, posts.user_id, posts.created_at")
-    .joins(:user).where("userName LIKE ? OR body LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%").order("posts.created_at DESC")
+    @posts = Post.joins(:user).where("user.userName LIKE ? OR body LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%").order("posts.created_at DESC")
 
     render "index"
 
