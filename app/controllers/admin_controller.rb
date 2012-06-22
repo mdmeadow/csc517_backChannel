@@ -3,7 +3,7 @@ class AdminController < ApplicationController
   # GET /admin.json
   def index
     @postsPerUser = Post.select('"userName", count(*) as post_count')
-      .joins(:user).group("users.userName").order("post_count DESC")
+      .joins(:user).group('"userName"').order("post_count DESC")
 
     @repliesPerPost = Post.select('posts.id, posts.body, posts.parent_id, "userName"')
           .joins(:user).where("parent_id is null").sort_by{ |t| t.children.length }.reverse
