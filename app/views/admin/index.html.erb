@@ -4,7 +4,7 @@
 <table  class="report">
 	<tr><td class="header">Post Body</td><td class="header">User Name</td><td class="header total">Total Replies</td></tr>
 	<% @repliesPerPostForToday.each do |post| %>
-	<tr><td  class="report"><%= post.body %></td><td  class="report"><%= post.userName %></td><td class="total report"><%= post.reply_count %></td></tr>
+	<tr><td  class="report"><%= post.body %></td><td  class="report"><%= post.userName %></td><td class="total report"><%= post.children.length %></td></tr>
 	<%end%>
 </table>
 
@@ -12,7 +12,7 @@
 <table  class="report">
 	<tr><td class="header">Post Body</td><td class="header">User Name</td><td class="header total">Total Replies</td></tr>
 	<% @repliesPerPost.each do |post| %>
-	<tr><td  class="report"><%= post.body %></td><td  class="report"><%= post.userName %></td><td class="total report"><%= post.reply_count %></td></tr>
+	<tr><td  class="report"><%= post.body %></td><td  class="report"><%= post.userName %></td><td class="total report"><%= post.children.length %></td></tr>
 	<%end%>
 </table>
 

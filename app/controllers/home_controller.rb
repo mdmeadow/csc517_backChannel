@@ -19,14 +19,10 @@ class HomeController < ApplicationController
 
   def search
     @searchResult = true
-    @posts = Post.joins(:user).where("user.userName LIKE ? OR body LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%").order("posts.created_at DESC")
+    @posts = Post.joins(:user).where("users.userName LIKE ? OR body LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%").order("posts.created_at DESC")
 
     render "index"
 
-  # respond_to do |format|
-  # format.html # index.html.erb
-  # format.json { render json: @posts }
-  # end
   end
 end
 
