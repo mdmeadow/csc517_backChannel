@@ -13,10 +13,10 @@
     end %>
 	<% if session[:user] != nil %>
 	<div class='replyLink'>
-		<%= link_to 'Reply to this post', :controller => 'posts', :action => 'new', :parent_id => post.id %>
+		<%= link_to 'Reply to this post', :controller => 'posts', :action => 'new', :parent_id => @post.id %>
 		<%  if session[:user].isadmin? %>
 		<%= link_to 'Delete this post', post, confirm: 'Are you sure?', :controller => 'posts',
-		:method => :delete,  :id => post.id%>
+		:method => :delete,  :id => @post.id%>
 		<% end %>
 	</div>
 	<% end %>
