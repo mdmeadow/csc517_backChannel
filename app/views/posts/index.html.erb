@@ -6,7 +6,7 @@
     signature = " replied "
   end
   signature += "on #{post.created_at }"
-  signature = (link_to user.userName, :controller => 'users', :action => 'show', :id => user.id) + signature
+  signature = (link_to user.username, :controller => 'users', :action => 'show', :id => user.id) + signature
 end %>
 <% @posts.each do |post| %>
 <div class='link'><%= link_to 'Reply to this post', new_post_path %></div>

@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :isAdmin, :password, :userName
+  attr_accessible :isadmin, :password, :username
   has_many :posts, :dependent => :delete_all
-  validates :userName, :presence => true, :uniqueness => true
+  validates :username, :presence => true, :uniqueness => true
 end

@@ -37,7 +37,7 @@ describe UsersController do
   describe "Get authenticate" do
     it "successful login" do
       @user = User.new
-      @user.userName = "username"
+      @user.username = "username"
       @user.password = "password"
       @user.save
 
@@ -47,7 +47,7 @@ describe UsersController do
 
     it "empty username" do
       @user = User.new
-      @user.userName = "username"
+      @user.username = "username"
       @user.password = "password"
       @user.save
 
@@ -57,7 +57,7 @@ describe UsersController do
 
     it "empty pw" do
       @user = User.new
-      @user.userName = "username"
+      @user.username = "username"
       @user.password = "password"
       @user.save
 
@@ -65,9 +65,9 @@ describe UsersController do
       response.should redirect_to("/user/login")
     end
 
-    it "userName doesn't exist'" do
+    it "username doesn't exist'" do
       @user = User.new
-      @user.userName = "username"
+      @user.username = "username"
       @user.password = "password"
       @user.save
 
@@ -75,9 +75,9 @@ describe UsersController do
       response.should redirect_to("/user/login")
     end
 
-    it "password does not match userName's password'" do
+    it "password does not match username's password'" do
       @user = User.new
-      @user.userName = "username"
+      @user.username = "username"
       @user.password = "password"
       @user.save
 
@@ -96,12 +96,12 @@ describe UsersController do
   describe "Get logout" do
     it "goes to logout page" do
       @user = User.new
-      @user.userName = "user"
+      @user.username = "user"
       @user.password = "pw"
       session[:user] = @user
 
       get :logout
-      session[:user].should == nil
+      session[:user].should = nil
       response.should redirect_to("/home/index")
     end
   end
@@ -158,9 +158,9 @@ describe UsersController do
       response.should redirect_to("/user/login")
     end
 
-    it "create - userName taken" do
+    it "create - username taken" do
       @user = User.new
-      @user.userName = "username"
+      @user.username = "username"
       @user.password = "password"
       @user.save
 

@@ -2,7 +2,7 @@
 
 <p>
   <b>Username:</b>
-  <%= @user.userName %>
+  <%= @user.username %>
 </p>
 
 <p>
@@ -12,12 +12,12 @@
 
 <p>
   <b>User level:</b>
-  <% level = session[:user].isAdmin?? "Administrator" : "User" %>
+  <% level = session[:user].isadmin?? "Administrator" : "User" %>
   <%= level %>
 </p>
 
 <% if !session[:user].nil? %>
-    <% if session[:user].isAdmin? %>
+    <% if session[:user].isadmin? %>
 <p>
   <b>Password:</b>
   <%= @user.password %>

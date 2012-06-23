@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def authenticate
     current_un = params[:login_un]
     current_pw = params[:login_pw]
-    @user = User.find_by_userName(current_un)
+    @user = User.find_by_username(current_un)
 
     if current_un.empty? || current_pw.empty? || @user.nil? ||
     @user.password != current_pw
@@ -93,13 +93,13 @@ class UsersController < ApplicationController
           flash[:creation_notice] = "Passwords must match."
         end
       else
-        @user = User.find_by_userName(username)
+        @user = User.find_by_username(username)
         if @user.nil?
 
           @user = User.new
-          @user.userName = username
+          @user.username = username
           @user.password = pw1
-          @user.isAdmin=false
+          @user.isadmin=false
 
           if @user.save
             session[:user] = @user

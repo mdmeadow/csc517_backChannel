@@ -3,7 +3,7 @@
 <table>
   <tr>
     <th>User Name</th>
-    <th>isAdmin</th>
+    <th>isadmin</th>
     <th>Date Created</th>
     <th></th>
     <th></th>
@@ -12,11 +12,11 @@
 
   <% @users.each do |user| %>
       <tr>
-        <td><%= user.userName %></td>
-        <td><%= user.isAdmin? %></td>
+        <td><%= user.username %></td>
+        <td><%= user.isadmin? %></td>
         <td><%= user.created_at %></td>
         <td><%= link_to 'Show', user %></td>
-        <% if !session[:user].nil? && session[:user].isAdmin? %>
+        <% if !session[:user].nil? && session[:user].isadmin? %>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
         <td><%= link_to 'Delete', user, confirm: 'Are you sure?', :controller => 'users', :method => :delete,  :id => user.id%></td>
         <% end %>

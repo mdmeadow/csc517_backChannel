@@ -53,7 +53,7 @@ describe PostsController do
   describe "create post" do
     it "creates post" do
       @user = User.new
-      @user.userName = "username"
+      @user.username = "username"
       @user.password = "password"
       @user.save
 
