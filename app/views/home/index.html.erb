@@ -58,13 +58,11 @@
 		<% end %>
 	</div>
 	<% end %>
+	<% user = User.find_by_id(post.user_id)%>
 	<div class='post parent'>
 		<%= post.body %>
 		<div>
-			<% user = User.find_by_id(post.user_id)
-      if user == nil
-        user = User.new
-      end %>
+			<% user = User.find_by_id(post.user_id) %>
 		</div>
 		<div class='tagline'>
 			<div class='conversation'>
