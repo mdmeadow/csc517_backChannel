@@ -56,7 +56,7 @@ class PostsController < ApplicationController
     @post.parent_id = params[:parent_id]
 
     respond_to do |format|
-      if !session[:user].nil?
+      if session[:user].nil?
         format.html { redirect_to @home, notice: 'Only users can post.' }
       elsif @post.save
         format.html { redirect_to "/", notice: 'Post was successfully created.' }
