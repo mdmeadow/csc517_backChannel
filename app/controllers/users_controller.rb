@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       session[:user] = @user
       flash[:notice] = ""
       respond_to do |format|
-      format.html { redirect_to :controller => 'home', :action => 'index' }
+        format.html { redirect_to :controller => 'home', :action => 'index' }
       end
     end
   end
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-  redirect_to "/"
+    redirect_to "/"
   end
 
   # GET /users/1
@@ -101,7 +101,9 @@ class UsersController < ApplicationController
           @user.password = pw1
           @user.isadmin=false
 
-          if @user.save
+          if !session[:user].isadmin? && @user.isadmin
+            flash[:creation_notice] = 'Only admins can create admins.'
+          elsif @user.save
             session[:user] = @user
             respond_to do |format|
               format.html { redirect_to :controller => 'home', :action => 'index' }
@@ -130,7 +132,9 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     respond_to do |format|
-      if @user.save
+      if !session[:user].isadmin? && @user.isadmin
+        format.html { redirect_to @user, notice: 'Only admins can create admins.' }
+      elsif @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
       else
@@ -146,7 +150,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if !session[:user].isadmin? && @user.isadmin
+        format.html { redirect_to @user, notice: 'Only admins can update.' }
+      elsif @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -160,11 +166,15 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to :action => "show_all" }
-      format.json { head :no_content }
+      if !session[:user].isadmin?
+        format.html { redirect_to @user, notice: 'Only admins can delete.' }
+      else
+        @user.destroy
+        format.html { redirect_to :action => "show_all" }
+        format.json { head :no_content }
+      end
     end
   end
 

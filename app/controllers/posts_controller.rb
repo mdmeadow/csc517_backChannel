@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   def index
     @posts = Post.select("posts.id, posts.body, posts.parent_id, posts.user_id, posts.created_at, count(children_posts.parent_id) as reply_count")
       .joins("left join posts as children_posts on posts.id = children_posts.parent_id").group("children_posts.parent_id").order("reply_count DESC")
-      # .joins(:children).group("children_posts.parent_id").order("reply_count DESC")
+    # .joins(:children).group("children_posts.parent_id").order("reply_count DESC")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,12 +15,12 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-      id = params[:id]
-      @post = Post.find(id)
-      if (@post.parent_id != nil)
-        id = @post.parent_id
-      end
-      @post = Post.find(id)
+    id = params[:id]
+    @post = Post.find(id)
+    if (@post.parent_id != nil)
+    id = @post.parent_id
+    end
+    @post = Post.find(id)
     @replies = Post.select("children_posts.id, children_posts.body, children_posts.parent_id, children_posts.user_id, children_posts.created_at")
       .joins(:children).where(["children_posts.parent_id = ?", id])
 
@@ -34,7 +34,7 @@ class PostsController < ApplicationController
   # GET /posts/new.json
   def new
     @post = Post.new
-    
+
     respond_to do |format|
       format.html #{ redirect_to '/' }
       format.json { render json: @post }
@@ -86,11 +86,15 @@ class PostsController < ApplicationController
   # DELETE /posts/1.json
   def destroy
     @post = Post.find(params[:id])
-    @post.destroy
 
     respond_to do |format|
-      format.html { redirect_to "/" }
-      format.json { head :no_content }
+      if !session[:user].isadmin?
+        format.html { redirect_to @user, notice: 'Only admins can delete.' }
+      else
+        @post.destroy
+        format.html { redirect_to "/" }
+        format.json { head :no_content }
+      end
     end
   end
 end
