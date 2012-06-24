@@ -57,7 +57,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if !session[:user].nil?
-        format.html { redirect_to @post, notice: 'Only users can post.' }
+        format.html { redirect_to @home, notice: 'Only users can post.' }
       elsif @post.save
         format.html { redirect_to "/", notice: 'Post was successfully created.' }
         format.json { render json: @post, status: :created, location: @post }
