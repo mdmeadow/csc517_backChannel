@@ -42,9 +42,9 @@ class PostsController < ApplicationController
   end
 
   # GET /posts/1/edit
-  def edit
-    @post = Post.find(params[:id])
-  end
+ def edit
+      @post = Post.find(params[:id])
+    end
 
   # POST /posts
   # POST /posts.json
@@ -56,7 +56,9 @@ class PostsController < ApplicationController
     @post.parent_id = params[:parent_id]
 
     respond_to do |format|
-      if @post.save
+      if !session[:user].nil?
+        format.html { redirect_to @user, notice: 'Only users can post.' }
+      elsif @post.save
         format.html { redirect_to "/", notice: 'Post was successfully created.' }
         format.json { render json: @post, status: :created, location: @post }
       else
@@ -72,7 +74,9 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     respond_to do |format|
-      if @post.update_attributes(params[:post])
+      if !session[:user].nil?
+        format.html { redirect_to @user, notice: 'Only users can post.' }
+      elsif @post.update_attributes(params[:post])
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { head :no_content }
       else
