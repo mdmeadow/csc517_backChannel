@@ -88,7 +88,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     respond_to do |format|
-      if !session[:user].isadmin?
+      if !session[:user].nil? && !session[:user].isadmin?
         format.html { redirect_to @user, notice: 'Only admins can delete.' }
       else
         @post.destroy

@@ -101,7 +101,7 @@ class UsersController < ApplicationController
           @user.password = pw1
           @user.isadmin=false
 
-          if !session[:user].isadmin? && @user.isadmin
+          if !session[:user].nil? && !session[:user].isadmin? && @user.isadmin
             flash[:creation_notice] = 'Only admins can create admins.'
           elsif @user.save
             session[:user] = @user
@@ -132,7 +132,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     respond_to do |format|
-      if !session[:user].isadmin? && @user.isadmin
+      if !session[:user].nil? && !session[:user].isadmin? && @user.isadmin
         format.html { redirect_to @user, notice: 'Only admins can create admins.' }
       elsif @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -150,7 +150,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      if !session[:user].isadmin? && @user.isadmin
+      if !session[:user].nil? && !session[:user].isadmin? && @user.isadmin
         format.html { redirect_to @user, notice: 'Only admins can update.' }
       elsif @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -168,7 +168,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      if !session[:user].isadmin?
+      if !session[:user].nil? && !session[:user].isadmin?
         format.html { redirect_to @user, notice: 'Only admins can delete.' }
       else
         @user.destroy
