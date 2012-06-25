@@ -1,15 +1,12 @@
-<div class="main">
-	<h3 class="subtitle">Create a new post</h3>
+<h2 class="subtitle">Create a new post</h2>
 
+<%= form_for @post, :url => {:action => "create", } do |f| %>
+<%= text_area_tag(:body, "", :placeholder => "Enter your message here.", :size => "48x12") %>
 
-	<%= form_for @post, :url => {:action => "create", } do |f| %>
-	<%= text_area_tag(:body, "", :placeholder => "Enter your message here.", :size => "48x12") %>
+<%= hidden_field_tag(:parent_id, params[:parent_id]) %>
+<%= hidden_field_tag(:user_id, session[:user].id) %>
 
-	<%= hidden_field_tag(:parent_id, params[:parent_id]) %>
-	<%= hidden_field_tag(:user_id, session[:user].id) %>
-
-	<div style="margin:2px 0px">
-    <%= f.submit "Create Post" %>
-	</div>
-	<% end %>
+<div style="margin:2px 0px">
+	<%= f.submit "Create Post" %>
 </div>
+<% end %>

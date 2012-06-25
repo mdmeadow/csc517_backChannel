@@ -1,24 +1,28 @@
-<div class="main">
-	<b>Sign in here:</b>
-	<%= form_tag(:controller => "users", :action => "authenticate") do |f| %>
-	<%= text_field_tag(:login_un, nil, :size => 20, :placeholder => "User Name") %>
-	<br />
-	<%= text_field_tag(:login_pw, nil, :size => 20, :placeholder => "Password") %>
-	<br />
-	<%= submit_tag("Login") %>
-	<% end %>
-	<%= flash[:notice] %>
-	<br />
-	<br />
-	<b>No account? Create one here:</b>
-	<%= form_tag(:controller => "users", :action => "create_account") do |f| %>
-	<%= text_field_tag(:create_un, nil, :size => 20, :placeholder => "User Name") %>
-	<br />
-	<%= text_field_tag(:create_pw, nil, :size => 20, :placeholder => "Password") %>
-	<br />
-	<%= text_field_tag(:confirm_pw, nil, :size => 20, :placeholder => "Confirm Password") %>
-	<br />
-	<%= submit_tag("Create Account") %>
-	<% end %>
-</div>
+<h2>Sign in here:</h2>
+<%= form_tag(:controller => "users", :action => "authenticate") do |f| %>
 
+<div class="label"><%= label_tag :login_un, "User Name:"%></div>
+<div><%= text_field_tag(:login_un, nil, :size => 30) %></div>
+
+<div class="label"><%= label_tag :login_pw, "Password:"%></div>
+<div><%= text_field_tag(:login_pw, nil, :size => 30) %></div>
+
+<div><%= submit_tag("Login") %></div>
+<% end %>
+
+<h2>No account? Create one here:</h2>
+<%= form_tag(:controller => "users", :action => "create_account") do |f| %>
+
+<div class="label"><%= label_tag :create_un, "Select a user name:"%></div>
+<div><%= text_field_tag(:create_un, nil, :size => 30) %></div>
+
+<div class="label"><%= label_tag :create_pw, "Enter a password:"%></div>
+<div><%= text_field_tag(:create_pw, nil, :size => 30) %></div>
+
+<div class="label"><%= label_tag :confirm_pw, "Type it again:"%></div>
+<div><%= text_field_tag(:confirm_pw, nil, :size => 30) %></div>
+
+<div><%= submit_tag("Create Account") %></div>
+<% end %>
+<br />
+<%= link_to 'Back', :back %>

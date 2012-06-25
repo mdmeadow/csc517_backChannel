@@ -1,6 +1,7 @@
 // Place all the styles related to the Home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
 .main {
   max-width: 800px;
   margin-left: auto;
@@ -10,10 +11,15 @@
   top: 80px;
 }
 
+.label {
+  margin-top: 5px;
+}
+
 #allPostsLink {
   float:left;
   padding: 4px;
 }
+
 #loginLink {
   text-align:right;
   padding: 4px;
@@ -60,7 +66,7 @@ input[name="commit"] {
 #admin {
   background-color: #fafad2;
   color: #00ced1;
-  width: 50%;
+  width: 90%;
   text-align: center;
   padding: 10px;
   margin: 10px;

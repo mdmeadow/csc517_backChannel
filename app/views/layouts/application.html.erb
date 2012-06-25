@@ -11,13 +11,13 @@
 		<h1 class="title">Welcome to BackChan</h1>
 		<h3 class = "title">You are logged in as <%= session[:user].nil? ? "guest" : "#{session[:user].username}" %></h3>
 		</div>
+		<div class="main">
 		<div id="notice">
 			<%= flash[:notice].nil? ? "" : flash[:notice] %>
 		</div>
 		<div id="error">
 			<%= flash[:error].nil? ? "" : flash[:error] %>
 		</div>
-		<div style="padding-top:5px;">
 		<%= yield %>
 		</div>
 	</body>
