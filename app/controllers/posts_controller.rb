@@ -59,6 +59,9 @@ class PostsController < ApplicationController
       if session[:user].nil?
         flash[:error] = 'Only users can post.'
         format.html { redirect_to "/" }
+      elsif @post.user_id == session[:user].id && @post.body == ""
+        flash[:error] = 'Users can\'t upvote their own posts.'
+        format.html { redirect_to "/" }
       elsif @post.save
         format.html { redirect_to "/", notice: 'Post was successfully created.' }
         format.json { render json: @post, status: :created, location: @post }
