@@ -101,7 +101,7 @@ class UsersController < ApplicationController
           @user.password = pw1
           @user.isadmin=false
 
-          if !session[:user].isadmin? && params[:user].isadmin?
+          if !session[:user].nil? && !session[:user].isadmin? && params[:user].isadmin?
             flash[:error] = 'Only admins can create admins.'
             format.html { redirect_to @user }
           elsif @user.save
@@ -152,7 +152,15 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      if !session[:user].isadmin? && params[:user].isadmin?
+    puts "\n\n\n\n\n\n\n\n"
+    puts "#{session[:user].isadmin?} #{session[:user].username} #{@user.username} #{params[:isadmin].nil?}"
+    puts "\n\n\n\n\n\n\n\n"
+    
+      if session[:user].isadmin? && session[:user].username == @user.username && params[:isadmin].nil?
+        flash[:error] = 'You are no longer an admin. Please log in again.'
+        session[:user] = nil
+        format.html { redirect_to :action => "logout" }
+      elsif !session[:user].isadmin? && params[:user].isadmin?
         flash[:error] = 'Only admins can create admins.'
         format.html { redirect_to @user }
       elsif @user.update_attributes(params[:user])
