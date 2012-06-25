@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Username:</b>
   <%= @user.username %>
@@ -12,7 +10,7 @@
 
 <p>
   <b>User level:</b>
-  <% level = session[:user].isadmin?? "Administrator" : "User" %>
+  <% level = (!session[:user].nil? && session[:user].isadmin?) ? "Administrator" : "User" %>
   <%= level %>
 </p>
 

@@ -6,6 +6,8 @@
   margin-left: auto;
   margin-right: auto;
   align:center;
+  position:relative;
+  top: 80px;
 }
 
 #allPostsLink {
@@ -20,7 +22,15 @@
 
 .title {
   text-align:center;
-  color: #00ced1;
+  color: #ffffff;
+}
+
+#header {
+  background-color: #008080;
+  width:100%;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .subtitle {
@@ -28,7 +38,7 @@
 }
 
 #search {
-  min-width:67%;
+  min-width:58%;
   font-size:larger;
 }
 
@@ -36,8 +46,10 @@
   border-style: solid;
   border-width: 1px;
   border-color: #afeeee;
-  width:85%;
+  width:90%;
   background-color:#fafad2;
+  padding: 5px;
+  margin: 10px;
 }
 
 input[name="commit"] {
@@ -54,8 +66,14 @@ input[name="commit"] {
   margin: 10px;
 }
 
-.error {
-  text-color: red;
+#error {
+  color: red;
+  font-size: larger;
+}
+
+#notice {
+  color: green;
+  font-size: larger;
 }
 
 a {

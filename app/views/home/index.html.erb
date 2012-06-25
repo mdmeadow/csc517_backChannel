@@ -1,15 +1,18 @@
 <div class="main">
-	<%= render 'shared/title' %>
+
 	<% if session[:user] != nil && session[:user].isadmin? %>
 	<div id="admin">
 		<div style="font-weight: bold; font-size: larger;">
 			<%= "#{session[:user].username} is an Administrator:" %>
 		</div>
-		<%= link_to 'Show Reports', :controller => 'admin', :action => 'index' %>
-		<%= link_to 'Create Account', :controller => 'users', :action => 'new' %>
-		<%= link_to 'Show Accounts', :controller => 'users', :action => 'show_all' %>
+		<div>
+			<%= link_to 'Show Reports', :controller => 'admin', :action => 'index' %>
+			<%= link_to 'Create Account', :controller => 'users', :action => 'new' %>
+			<%= link_to 'Show Accounts', :controller => 'users', :action => 'show_all' %>
+		</div>
 	</div>
 	<% end %>
+
 	<div id="allPostsLink">
 		<% if @searchResult %>
 		<%= link_to 'View all posts', :action => 'index' %>
@@ -17,6 +20,7 @@
 		<%= link_to 'Create a new post', :controller => 'posts', :action => 'new' %>
 		<% end %>
 	</div>
+
 	<div id="loginLink">
 		<%= if session[:user].nil?
       link_to 'Login/Create account', :controller => 'users', :action => 'login'
@@ -25,17 +29,9 @@
     end %>
 	</div>
 
-	<div>
-		<div id="notice">
-			<%= notice %>
-		</div>
-		<div id="notice">
-			<%= notice %>
-		</div>
-	</div>
 	<div class="search">
 		<%= form_tag("/home/search", :method => "post") do %>
-		<%= label_tag(:search, "Search for:") %>
+		<%= label_tag(:search, "Search by user or post:") %>
 		<%= text_field_tag(:search) %>
 		<%= submit_tag("Search") %>
 		<% end %>
@@ -51,6 +47,7 @@
     signature += "on #{post.created_at }"
     signature = (link_to user.username, :controller => 'users', :action => 'show', :id => user.id) + signature
   end %>
+
 	<% @posts.each do |post| %>
 	<% if session[:user] != nil %>
 	<div class='replyLink'>
@@ -61,7 +58,7 @@
 		<% end %>
 	</div>
 	<% end %>
-	<% user = User.find_by_id(post.user_id)%>
+
 	<div class='post parent'>
 		<%= post.body %>
 		<div>
@@ -98,4 +95,12 @@
 	<% end %>
 	<% end %>
 	<% end %>
+	<% if !@searchResult.nil? && !@users.nil? %>
+	<% @users.each do |user| %>
+	<div class='post parent'>
+		<%= link_to user.username, :controller => 'users', :action => 'show', :id => user.id %> has no posts.
+	</div>
+	<% end %>
+	<% end %>
+
 </div>

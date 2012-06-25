@@ -1,5 +1,4 @@
 <div class="main">
-	<%= render 'shared/title' %>
 	<b>Sign in here:</b>
 	<%= form_tag(:controller => "users", :action => "authenticate") do |f| %>
 	<%= text_field_tag(:login_un, nil, :size => 20, :placeholder => "User Name") %>
@@ -21,6 +20,5 @@
 	<br />
 	<%= submit_tag("Create Account") %>
 	<% end %>
-	<%= flash[:creation_notice] %>
 </div>
 

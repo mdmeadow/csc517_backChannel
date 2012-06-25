@@ -19,6 +19,8 @@ class HomeController < ApplicationController
 
   def search
     @searchResult = true
+    @users = User.where("UPPER(username) LIKE UPPER(?) AND id NOT IN (SELECT user_id FROM posts)",
+      "%#{params[:search]}%").order("created_at DESC")
     @posts = Post.joins(:user).where("UPPER(username) LIKE UPPER(?) OR UPPER(body) LIKE UPPER(?)",
       "%#{params[:search]}%", "%#{params[:search]}%").order("posts.created_at DESC")
 

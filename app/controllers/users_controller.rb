@@ -101,8 +101,9 @@ class UsersController < ApplicationController
           @user.password = pw1
           @user.isadmin=false
 
-          if !session[:user].nil? && !session[:user].isadmin? && @user.isadmin
-            flash[:creation_notice] = 'Only admins can create admins.'
+          if !session[:user].isadmin? && params[:user].isadmin?
+            flash[:error] = 'Only admins can create admins.'
+            format.html { redirect_to @user }
           elsif @user.save
             session[:user] = @user
             respond_to do |format|
@@ -112,13 +113,13 @@ class UsersController < ApplicationController
           else
             respond_to do |format|
               format.html { redirect_to action: "login" }
-              flash[:creation_notice] = "Account was not created successfully."
+              flash[:notice] = "Account was not created successfully."
             end
           end
         else
           respond_to do |format|
             format.html { redirect_to action: "login" }
-            flash[:creation_notice] = "User Name is taken."
+            flash[:error] = "User Name is taken."
           end
         end
       end
@@ -132,8 +133,9 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     respond_to do |format|
-      if !session[:user].nil? && !session[:user].isadmin? && @user.isadmin
-        format.html { redirect_to @user, notice: 'Only admins can create admins.' }
+      if !session[:user].isadmin? && params[:user].isadmin?
+        flash[:error] = 'Only admins can create admins.'
+        format.html { redirect_to @user }
       elsif @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
@@ -150,8 +152,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      if !session[:user].nil? && !session[:user].isadmin? && @user.isadmin
-        format.html { redirect_to @user, notice: 'Only admins can update.' }
+      if !session[:user].isadmin? && params[:user].isadmin?
+        flash[:error] = 'Only admins can create admins.'
+        format.html { redirect_to @user }
       elsif @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
@@ -168,8 +171,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      if !session[:user].nil? && !session[:user].isadmin?
-        format.html { redirect_to @user, notice: 'Only admins can delete.' }
+      if !session[:user].isadmin? && session[:user] == @user
+        flash[:error] = 'Admins cannot delete themselves.'
+        format.html { redirect_to @user }
+      elsif !session[:user].nil? && !session[:user].isadmin?
+        flash[:error] = 'Only admins can delete users.'
+        format.html { redirect_to @user }
       else
         @user.destroy
         format.html { redirect_to :action => "show_all" }
