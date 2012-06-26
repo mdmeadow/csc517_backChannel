@@ -2,7 +2,6 @@ require "bcrypt"
 
 class UsersController < ApplicationController
   include BCrypt
-
   def authenticate
     current_un = params[:login_un]
     current_pw = params[:login_pw]
@@ -12,7 +11,7 @@ class UsersController < ApplicationController
     Password.new(@user.password) != current_pw
       respond_to do |format|
         format.html { redirect_to action: "login" }
-        flash[:notice] = "User Name/Password combination is incorrect."
+        flash[:error] = "User Name/Password combination is incorrect."
       end
     else
       session[:user] = @user
@@ -157,16 +156,21 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      if session[:user].isadmin? && session[:user].username == @user.username && params[:user][:isadmin].nil?
-        flash[:error] = 'You are no longer an admin. Please log in again.'
-        session[:user] = nil
-        format.html { redirect_to :action => "logout" }
-      elsif !session[:user].isadmin? && params[:user].isadmin?
+      if !session[:user].isadmin? && params[:user][:isadmin] == 0
         flash[:error] = 'Only admins can create admins.'
         format.html { redirect_to @user }
-      elsif  @user.update_attributes(:username => params[:user][:username], :password => Password.create(params[:user][:password]), :isadmin => params[:user][:isadmin])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { head :no_content }
+      elsif  @user.update_attributes(:username => params[:user][:username], :isadmin => params[:user][:isadmin])
+        if params[:user][:password] != ""
+          @user.update_attributes(:password => Password.create(params[:user][:password]))
+        end
+        if session[:user].isadmin? && session[:user].username == @user.username && params[:user][:isadmin] == "0"
+          flash[:error] = 'You are no longer an admin. Please log in again.'
+          session[:user] = nil
+          format.html { redirect_to :action => "logout" }
+        else
+          format.html { redirect_to @user, notice: 'User was successfully updated.' }
+          format.json { head :no_content }
+        end
       else
         format.html { redirect_to action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }

@@ -5,7 +5,7 @@
 <div><%= text_field_tag(:login_un, nil, :size => 30) %></div>
 
 <div class="label"><%= label_tag :login_pw, "Password:"%></div>
-<div><%= text_field_tag(:login_pw, nil, :size => 30) %></div>
+<div><%= password_field_tag(:login_pw, nil, :size => 30) %></div>
 
 <div><%= submit_tag("Login") %></div>
 <% end %>
@@ -17,10 +17,10 @@
 <div><%= text_field_tag(:create_un, nil, :size => 30) %></div>
 
 <div class="label"><%= label_tag :create_pw, "Enter a password:"%></div>
-<div><%= text_field_tag(:create_pw, nil, :size => 30) %></div>
+<div><%= password_field_tag(:create_pw, nil, :size => 30) %></div>
 
 <div class="label"><%= label_tag :confirm_pw, "Type it again:"%></div>
-<div><%= text_field_tag(:confirm_pw, nil, :size => 30) %></div>
+<div><%= password_field_tag(:confirm_pw, nil, :size => 30) %></div>
 
 <div><%= submit_tag("Create Account") %></div>
 <% end %>
