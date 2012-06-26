@@ -157,14 +157,14 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      if session[:user].isadmin? && session[:user].username == @user.username && params[:isadmin].nil?
+      if session[:user].isadmin? && session[:user].username == @user.username && params[:user][:isadmin].nil?
         flash[:error] = 'You are no longer an admin. Please log in again.'
         session[:user] = nil
         format.html { redirect_to :action => "logout" }
       elsif !session[:user].isadmin? && params[:user].isadmin?
         flash[:error] = 'Only admins can create admins.'
         format.html { redirect_to @user }
-      elsif  @user.update_attributes(params[:user])
+      elsif  @user.update_attributes(:username => params[:user][:username], :password => Password.create(params[:user][:password]), :isadmin => params[:user][:isadmin])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
