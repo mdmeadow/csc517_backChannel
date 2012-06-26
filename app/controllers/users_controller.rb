@@ -78,6 +78,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    @user.password = ""
   end
 
   def create_account
@@ -156,10 +157,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-    puts "\n\n\n\n\n\n\n\n"
-    puts "#{session[:user].isadmin?} #{session[:user].username} #{@user.username} #{params[:isadmin].nil?}"
-    puts "\n\n\n\n\n\n\n\n"
-    
       if session[:user].isadmin? && session[:user].username == @user.username && params[:isadmin].nil?
         flash[:error] = 'You are no longer an admin. Please log in again.'
         session[:user] = nil
@@ -167,7 +164,7 @@ class UsersController < ApplicationController
       elsif !session[:user].isadmin? && params[:user].isadmin?
         flash[:error] = 'Only admins can create admins.'
         format.html { redirect_to @user }
-      elsif @user.update_attributes(params[:user])
+      elsif  @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
