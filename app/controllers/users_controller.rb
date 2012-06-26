@@ -1,11 +1,15 @@
+require "bcrypt"
+
 class UsersController < ApplicationController
+  include BCrypt
+
   def authenticate
     current_un = params[:login_un]
     current_pw = params[:login_pw]
     @user = User.find_by_username(current_un)
 
     if current_un.empty? || current_pw.empty? || @user.nil? ||
-    @user.password != current_pw
+    Password.new(@user.password) != current_pw
       respond_to do |format|
         format.html { redirect_to action: "login" }
         flash[:notice] = "User Name/Password combination is incorrect."
@@ -98,7 +102,7 @@ class UsersController < ApplicationController
 
           @user = User.new
           @user.username = username
-          @user.password = pw1
+          @user.password = Password.create(pw1)
           @user.isadmin=false
 
           if !session[:user].nil? && !session[:user].isadmin? && params[:user].isadmin?
