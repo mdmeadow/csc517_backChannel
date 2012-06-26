@@ -29,6 +29,7 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     arel (3.0.2)
+    bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-x86-mingw32)
     builder (3.0.0)
     coffee-rails (3.2.2)
@@ -41,7 +42,7 @@ GEM
     daemons (1.1.8)
     diff-lcs (1.1.3)
     erubis (2.7.0)
-    eventmachine (1.0.0.beta.4.1-x86-mingw32)
+    eventmachine (0.12.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
     hike (1.2.1)
@@ -57,7 +58,8 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.19)
     multi_json (1.3.6)
-    pg (0.13.2-x86-mingw32)
+    pg (0.14.0)
+    pg (0.14.0-x86-mingw32)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -106,6 +108,7 @@ GEM
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    sqlite3 (1.3.6)
     sqlite3 (1.3.6-x86-mingw32)
     thin (1.3.1)
       daemons (>= 1.0.9)
@@ -122,6 +125,7 @@ GEM
       multi_json (~> 1.3)
 
 PLATFORMS
+  ruby
   x86-mingw32
 
 DEPENDENCIES
