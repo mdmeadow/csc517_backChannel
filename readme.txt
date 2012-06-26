@@ -13,3 +13,7 @@ To start the application, start the server and go to localhost:3000 in your brow
 
 Testing:
 RSpec was used for testing. All files created for spec tests (views, models, controllers, routes, requests, and helpers) are located under the path csc517_backChannel/spec. The files in csc517_backChannel/test only contain basic testing. 
+
+Extra Credit:
+-RSpec (testing)
+-BCrypt (passwords)
