@@ -135,6 +135,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
+    @user.password = Password.create(@user.password)
 
     respond_to do |format|
       if !session[:user].isadmin? && params[:user].isadmin?
