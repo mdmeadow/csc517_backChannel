@@ -185,7 +185,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      if !session[:user].isadmin? && session[:user] == @user
+      if session[:user].isadmin? && session[:user].username == @user.username
         flash[:error] = 'Admins cannot delete themselves.'
         format.html { redirect_to @user }
       elsif !session[:user].nil? && !session[:user].isadmin?
